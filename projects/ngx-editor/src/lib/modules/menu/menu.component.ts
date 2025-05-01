@@ -11,6 +11,7 @@ import { InsertCommandComponent } from './insert-command/insert-command.componen
 import { LinkComponent } from './link/link.component';
 import { MenuService } from './menu.service';
 import { ToggleCommandComponent } from './toggle-command/toggle-command.component';
+import { TableComponent } from './table/table.component';
 
 export const DEFAULT_TOOLBAR: Toolbar = [
   ['bold', 'italic'],
@@ -19,6 +20,7 @@ export const DEFAULT_TOOLBAR: Toolbar = [
   ['ordered_list', 'bullet_list'],
   [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
   ['link', 'image'],
+  ['table'],
   ['text_color', 'background_color'],
   ['align_left', 'align_center', 'align_right', 'align_justify'],
   ['format_clear'],
@@ -28,6 +30,7 @@ export const TOOLBAR_MINIMAL: Toolbar = [
   ['bold', 'italic'],
   [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
   ['link', 'image'],
+  ['table'],
   ['text_color', 'background_color'],
 ];
 
@@ -38,6 +41,7 @@ export const TOOLBAR_FULL: Toolbar = [
   ['ordered_list', 'bullet_list'],
   [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
   ['link', 'image'],
+  ['table'],
   ['text_color', 'background_color'],
   ['align_left', 'align_center', 'align_right', 'align_justify'],
   ['horizontal_rule', 'format_clear', 'indent', 'outdent'],
@@ -77,6 +81,7 @@ const DEFAULT_COLOR_PRESETS = [
     InsertCommandComponent,
     LinkComponent,
     ImageComponent,
+    TableComponent,
   ],
 })
 export class NgxEditorMenuComponent implements OnInit {

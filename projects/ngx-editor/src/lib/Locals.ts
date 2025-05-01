@@ -28,6 +28,7 @@ export const defaults: Record<string, string | Observable<string>> = {
   insertLink: 'Insert Link',
   removeLink: 'Remove Link',
   insertImage: 'Insert Image',
+  insertTable: 'Insert Table',
   indent: 'Increase Indent',
   outdent: 'Decrease Indent',
   superscript: 'Superscript',
@@ -44,6 +45,8 @@ export const defaults: Record<string, string | Observable<string>> = {
   title: 'Title',
   remove: 'Remove',
   enterValidUrl: 'Please enter a valid URL',
+  rows: 'Number of Rows',
+  cols: 'Number of Columns',
 };
 
 export type LocalsKeys = keyof typeof defaults;

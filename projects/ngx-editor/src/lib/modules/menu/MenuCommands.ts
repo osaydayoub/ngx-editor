@@ -32,9 +32,11 @@ export const InsertCommands: Record<string, InsertCommand> = {
   outdent: Commands.OUTDENT,
   undo: Commands.UNDO,
   redo: Commands.REDO,
+  // table: Commands.TABLE_INSERT, 
 };
 
 export const Link = Commands.LINK;
 export const Image = Commands.IMAGE;
+export const Table = Commands.TABLE;
 export const TextColor = Commands.TEXT_COLOR;
 export const TextBackgroundColor = Commands.TEXT_BACKGROUND_COLOR;
