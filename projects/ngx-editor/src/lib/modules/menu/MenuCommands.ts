@@ -32,7 +32,6 @@ export const InsertCommands: Record<string, InsertCommand> = {
   outdent: Commands.OUTDENT,
   undo: Commands.UNDO,
   redo: Commands.REDO,
-  // table: Commands.TABLE_INSERT, 
 };
 
 export const Link = Commands.LINK;

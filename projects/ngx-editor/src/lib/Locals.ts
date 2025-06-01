@@ -46,7 +46,11 @@ export const defaults: Record<string, string | Observable<string>> = {
   remove: 'Remove',
   enterValidUrl: 'Please enter a valid URL',
   rows: 'Number of Rows',
+  rowsRequired: 'Rows field is required.',
+  rowsMin: 'Minimum number of rows must be 1.',
   cols: 'Number of Columns',
+  colsRequired: 'Columns field is required.',
+  colsMin: 'Minimum number of columns must be 1.',
 };
 
 export type LocalsKeys = keyof typeof defaults;

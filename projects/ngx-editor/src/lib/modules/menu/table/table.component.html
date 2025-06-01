@@ -12,42 +12,6 @@
   [ariaExpanded]="showPopup"
 ></button>
 
-<!-- popup -->
-<!-- <div *ngIf="showPopup" class="NgxEditor__Popup">
-  <form class="NgxEditor__Popup--Form" [formGroup]="form" (ngSubmit)="insertLink($event)">
-    <div class="NgxEditor__Popup--FormGroup">
-      <div class="NgxEditor__Popup--Col">
-        <label class="NgxEditor__Popup--Label" [htmlFor]="getId('image-popup-rows')">{{
-          getLabel('rows') | async
-        }}</label>
-        <input type="url" [id]="getId('image-popup-url')" formControlName="src" autocomplete="off" />
-        <div *ngIf="src.touched && src.invalid" class="NgxEditor__HelpText NgxEditor__HelpText--Error">
-          {{ src.errors?.['pattern'] && getLabel('enterValidUrl') | async }}
-        </div>
-      </div>
-    </div>
-
-    <div class="NgxEditor__Popup--FormGroup">
-      <div class="NgxEditor__Popup--Col">
-        <label class="NgxEditor__Popup--Label" [htmlFor]="getId('image-popup-label')">{{
-          getLabel('altText') | async
-        }}</label>
-        <input type="text" [id]="getId('image-popup-label')" formControlName="alt" autocomplete="off" />
-      </div>
-    </div>
-
-    <div class="NgxEditor__Popup--FormGroup">
-      <div class="NgxEditor__Popup--Col">
-        <label class="NgxEditor__Popup--Label" [htmlFor]="getId('image-popup-title')">{{
-          getLabel('title') | async
-        }}</label>
-        <input type="text" [id]="getId('image-popup-title')" formControlName="title" autocomplete="off" />
-      </div>
-    </div>
-
-    <button type="submit" [disabled]="!form.valid || !form.dirty">{{ getLabel('insert') | async }}</button>
-  </form>
-</div> -->
 <div *ngIf="showPopup" class="NgxEditor__Popup">
   <form class="NgxEditor__Popup--Form" [formGroup]="form" (ngSubmit)="insertTable($event)">
     <div class="NgxEditor__Popup--FormGroup">
@@ -60,8 +24,16 @@
           [id]="getId('table-popup-rows')"
           formControlName="rows"
           min="1"
+          placeholder="2"
           autocomplete="off"
         />
+        <div
+          *ngIf="form.get('rows').touched && form.get('rows').invalid"
+          class="NgxEditor__HelpText NgxEditor__HelpText--Error"
+        >
+          {{ form.get('rows').errors?.['required'] && getLabel('rowsRequired') | async }}
+          {{ form.get('rows').errors?.['min'] && getLabel('rowsMin') | async }}
+        </div>
       </div>
     </div>
 
@@ -75,11 +47,19 @@
           [id]="getId('table-popup-cols')"
           formControlName="cols"
           min="1"
+          placeholder="3"
           autocomplete="off"
         />
+        <div
+          *ngIf="form.get('cols').touched && form.get('cols').invalid"
+          class="NgxEditor__HelpText NgxEditor__HelpText--Error"
+        >
+          {{ form.get('cols').errors?.['required'] && getLabel('colsRequired') | async }}
+          {{ form.get('cols').errors?.['min'] && getLabel('colsMin') | async }}
+        </div>
       </div>
     </div>
 
-    <button type="submit" [disabled]="!form.valid || !form.dirty">{{ getLabel('insert') | async }}</button>
+    <button type="submit" [disabled]="!form.valid">{{ getLabel('insert') | async }}</button>
   </form>
 </div>

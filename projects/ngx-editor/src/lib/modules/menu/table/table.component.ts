@@ -1,8 +1,7 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {  FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { uniq } from 'ngx-editor/utils';
-import { NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { Observable, Subscription } from 'rxjs';
 import { NgxEditorService } from '../../../editor.service';
@@ -26,7 +25,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   form = new FormGroup({
     rows: new FormControl(2, [Validators.required, Validators.min(1)]),
-    cols: new FormControl(2, [Validators.required, Validators.min(1)]),
+    cols: new FormControl(3, [Validators.required, Validators.min(1)]),
   });
 
   private editorView: EditorView;
@@ -39,10 +38,6 @@ export class TableComponent implements OnInit, OnDestroy {
 
   get icon(): HTML {
     return this.ngxeService.getIcon('table');
-  }
-
-  get src(): AbstractControl {
-    return this.form.get('src');
   }
 
   @HostListener('document:mousedown', ['$event']) onDocumentClick(e: MouseEvent): void {
@@ -63,7 +58,7 @@ export class TableComponent implements OnInit, OnDestroy {
     this.showPopup = false;
     this.form.reset({
       rows: 2,
-      cols: 2,
+      cols: 3,
     });
   }
 
@@ -88,10 +83,9 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   private fillForm(): void {
-    // You can pre-fill default rows/cols here if needed
     this.form.setValue({
       rows: 2,
-      cols: 2,
+      cols: 3,
     });
   }
 
@@ -104,10 +98,19 @@ export class TableComponent implements OnInit, OnDestroy {
     e.preventDefault();
     const { rows, cols } = this.form.getRawValue();
     const { dispatch, state } = this.editorView;
-  
-    TableCommand.insert(+rows, +cols)(state, dispatch);
-    this.editorView.focus();
-    this.hideForm();
+
+    if (!state || !dispatch) {
+      console.error('Editor state or dispatch not available');
+      return;
+    }
+
+    const success = TableCommand.insert(rows, cols)(state, dispatch);
+    if (success) {
+      this.editorView.focus();
+      this.hideForm();
+    } else {
+      console.error('Failed to insert table');
+    }
   }
 
   ngOnInit(): void {
