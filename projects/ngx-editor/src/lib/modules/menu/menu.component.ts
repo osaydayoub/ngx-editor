@@ -3,7 +3,15 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxEditorError } from 'ngx-editor/utils';
 import Editor from '../../Editor';
-import { Toolbar, ToolbarDropdown, ToolbarItem, ToolbarLink, ToolbarLinkOptions } from '../../types';
+import {
+  Toolbar,
+  ToolbarDropdown,
+  ToolbarItem,
+  ToolbarLink,
+  ToolbarLinkOptions,
+  TBTableItems,
+  TBHeadingItems,
+} from '../../types';
 import { ColorPickerComponent } from './color-picker/color-picker.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ImageComponent } from './image/image.component';
@@ -12,6 +20,7 @@ import { LinkComponent } from './link/link.component';
 import { MenuService } from './menu.service';
 import { ToggleCommandComponent } from './toggle-command/toggle-command.component';
 import { TableComponent } from './table/table.component';
+import { EditorState } from 'prosemirror-state';
 
 export const DEFAULT_TOOLBAR: Toolbar = [
   ['bold', 'italic'],
@@ -20,7 +29,27 @@ export const DEFAULT_TOOLBAR: Toolbar = [
   ['ordered_list', 'bullet_list'],
   [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
   ['link', 'image'],
-  ['table'],
+  [
+    'table',
+    {
+      table: [
+        'addColumnBefore',
+        'addColumnAfter',
+        'deleteColumn',
+        'addRowBefore',
+        'addRowAfter',
+        'deleteRow',
+        'deleteTable',
+        'mergeCells',
+        'splitCell',
+        'toggleHeaderRow',
+        'toggleHeaderColumn',
+        'toggleHeaderCell',
+        'setCellBackgroundGreen',
+        'clearCellBackground',
+      ],
+    },
+  ],
   ['text_color', 'background_color'],
   ['align_left', 'align_center', 'align_right', 'align_justify'],
   ['format_clear'],
@@ -30,7 +59,27 @@ export const TOOLBAR_MINIMAL: Toolbar = [
   ['bold', 'italic'],
   [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
   ['link', 'image'],
-  ['table'],
+  [
+    'table',
+    {
+      table: [
+        'addColumnBefore',
+        'addColumnAfter',
+        'deleteColumn',
+        'addRowBefore',
+        'addRowAfter',
+        'deleteRow',
+        'deleteTable',
+        'mergeCells',
+        'splitCell',
+        'toggleHeaderRow',
+        'toggleHeaderColumn',
+        'toggleHeaderCell',
+        'setCellBackgroundGreen',
+        'clearCellBackground',
+      ],
+    },
+  ],
   ['text_color', 'background_color'],
 ];
 
@@ -41,7 +90,27 @@ export const TOOLBAR_FULL: Toolbar = [
   ['ordered_list', 'bullet_list'],
   [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
   ['link', 'image'],
-  ['table'],
+  [
+    'table',
+    {
+      table: [
+        'addColumnBefore',
+        'addColumnAfter',
+        'deleteColumn',
+        'addRowBefore',
+        'addRowAfter',
+        'deleteRow',
+        'deleteTable',
+        'mergeCells',
+        'splitCell',
+        'toggleHeaderRow',
+        'toggleHeaderColumn',
+        'toggleHeaderCell',
+        'setCellBackgroundGreen',
+        'clearCellBackground',
+      ],
+    },
+  ],
   ['text_color', 'background_color'],
   ['align_left', 'align_center', 'align_right', 'align_justify'],
   ['horizontal_rule', 'format_clear', 'indent', 'outdent'],
@@ -109,15 +178,24 @@ export class NgxEditorMenuComponent implements OnInit {
     'subscript',
   ];
 
-  insertCommands: ToolbarItem[] = [
-    'horizontal_rule',
-    'format_clear',
-    'indent',
-    'outdent',
-    'undo',
-    'redo',
-  ];
+  insertCommands: ToolbarItem[] = ['horizontal_rule', 'format_clear', 'indent', 'outdent', 'undo', 'redo'];
 
+  tableCommands: TBTableItems[] = [
+    'addColumnBefore',
+    'addColumnAfter',
+    'deleteColumn',
+    'addRowBefore',
+    'addRowAfter',
+    'deleteRow',
+    'deleteTable',
+    'mergeCells',
+    'splitCell',
+    'toggleHeaderRow',
+    'toggleHeaderColumn',
+    'toggleHeaderCell',
+    'setCellBackgroundGreen',
+    'clearCellBackground',
+  ];
   iconContainerClass = ['NgxEditor__MenuItem', 'NgxEditor__MenuItem--IconContainer'];
   dropdownContainerClass = ['NgxEditor__Dropdown'];
   seperatorClass = ['NgxEditor__Seperator'];
@@ -146,10 +224,10 @@ export class NgxEditorMenuComponent implements OnInit {
   }
 
   isDropDown(item: ToolbarItem): boolean {
-    if ((item as ToolbarDropdown)?.heading) {
+    const dropdown = item as ToolbarDropdown;
+    if (dropdown?.heading || dropdown?.table) {
       return true;
     }
-
     return false;
   }
 
