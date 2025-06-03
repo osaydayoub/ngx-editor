@@ -131,34 +131,6 @@ export class DropdownComponent implements OnInit, OnDestroy {
     this.selectItem(item);
   }
 
-  displayText(item: TBHeadingItems | TBTableItems): string {
-    const tableDisplayNames: { [key in TBTableItems]: string } = {
-      addColumnBefore: 'Insert Column Before',
-      addColumnAfter: 'Insert Column After',
-      deleteColumn: 'Delete Column',
-      addRowBefore: 'Insert Row Before',
-      addRowAfter: 'Insert Row After',
-      deleteRow: 'Delete Row',
-      deleteTable: 'Delete Table',
-      mergeCells: 'Merge Cells',
-      splitCell: 'Split Cell',
-      toggleHeaderRow: 'Toggle Header Row',
-      toggleHeaderColumn: 'Toggle Header Column',
-      toggleHeaderCell: 'Toggle Header Cells',
-      setCellBackgroundGreen: 'Make Cell Green',
-      clearCellBackground: 'Clear Cell Background',
-    };
-    const headingDisplayNames: { [key in TBHeadingItems]: string } = {
-      h1: 'Heading 1',
-      h2: 'Heading 2',
-      h3: 'Heading 3',
-      h4: 'Heading 4',
-      h5: 'Heading 5',
-      h6: 'Heading 6',
-    };
-    return tableDisplayNames[item as TBTableItems] || headingDisplayNames[item as TBHeadingItems] || item;
-  }
-
   private update = (view: EditorView) => {
     const { state } = view;
     this.disabledItems = [];
@@ -187,6 +159,7 @@ export class DropdownComponent implements OnInit, OnDestroy {
         };
         const command = tableCommands[item as TBTableItems];
         if (command) {
+          // Table commands lack 'isActive', so defaulting to false.
           isActive = false; 
           canExecute = command(state);
         }

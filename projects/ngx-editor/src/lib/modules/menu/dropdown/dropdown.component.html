@@ -7,11 +7,11 @@
     (mousedown)="onToggleDropdownMouseClick($event)"
     (keydown.enter)="onToggleDropdownKeydown()"
     (keydown.space)="onToggleDropdownKeydown()"
-    [ariaLabel]="(getName(activeItem || group) | async) || (activeItem || group | titlecase)"
+    [ariaLabel]="(getName(activeItem || group) | async) "
     aria-haspopup="listbox"
-    [attr.aria-expanded]="isDropdownOpen"
+    [ariaExpanded]="isDropdownOpen"
   >
-    {{ (getName(activeItem || group) | async) || (activeItem || group | titlecase) }}
+    {{ (getName(activeItem || group) | async) }}
   </button>
 
   <div class="NgxEditor__Dropdown--DropdownMenu" *ngIf="isDropdownOpen" role="listbox">
@@ -26,11 +26,11 @@
         'NgxEditor__Dropdown--Active': item === activeItem,
         'NgxEditor--Disabled': disabledItems.includes(item)
       }"
-      [ariaLabel]="(getName(item) | async) || displayText(item)"
+      [ariaLabel]="(getName(item) | async) "
       role="option"
       [attr.aria-selected]="item === activeItem"
     >
-      {{ (getName(item) | async) || displayText(item) }}
+      {{ (getName(item) | async) }}
     </button>
   </div>
 

@@ -51,6 +51,22 @@ export const defaults: Record<string, string | Observable<string>> = {
   cols: 'Number of Columns',
   colsRequired: 'Columns field is required.',
   colsMin: 'Minimum number of columns must be 1.',
+ // Table actions
+  table:'Table',
+  addColumnBefore: 'Insert Column Before',
+  addColumnAfter: 'Insert Column After',
+  deleteColumn: 'Delete Column',
+  addRowBefore: 'Insert Row Before',
+  addRowAfter: 'Insert Row After',
+  deleteRow: 'Delete Row',
+  deleteTable: 'Delete Table',
+  mergeCells: 'Merge Cells',
+  splitCell: 'Split Cell',
+  toggleHeaderRow: 'Toggle Header Row',
+  toggleHeaderColumn: 'Toggle Header Column',
+  toggleHeaderCell: 'Toggle Header Cells',
+  setCellBackgroundGreen: 'Make Cell Green',
+  clearCellBackground: 'Clear Cell Background',
 };
 
 export type LocalsKeys = keyof typeof defaults;
