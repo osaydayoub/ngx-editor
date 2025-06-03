@@ -208,22 +208,6 @@ export class NgxEditorMenuComponent implements OnInit {
     return (item as ToolbarLink)?.link;
   }
 
-  isTableDropdown(item: ToolbarItem): boolean {
-    return !!(item as ToolbarDropdown).table;
-  }
-
-  isInTable(): boolean {
-    const state: EditorState = this.editor.view.state;
-    const { $from } = state.selection;
-    for (let d = $from.depth; d >= 0; d--) {
-      const node = $from.node(d);
-      if (node.type.name === 'table' || node.type.name === 'table_cell' || node.type.name === 'table_row') {
-        return true;
-      }
-    }
-    return false;
-  }
-
   ngOnInit(): void {
     if (!this.editor) {
       throw new NgxEditorError('Required editor instance to initialize menu component');

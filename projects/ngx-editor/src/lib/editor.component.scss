@@ -208,8 +208,9 @@ $pointer-style: var(--ngx-editor-click-pointer, default);
   }
 }
 
+
 .NgxEditor__Dropdown {
-  min-width: 64px;
+  width: fit-content; // Allow dropdown to grow with content
   position: relative;
   display: flex;
   align-items: center;
@@ -227,6 +228,7 @@ $pointer-style: var(--ngx-editor-click-pointer, default);
     padding: $menubar-text-padding;
     height: 100%;
     width: 100%;
+    max-width: none;
 
     &:focus-visible {
       outline: 1px solid $focus-ring-color;
@@ -251,7 +253,8 @@ $pointer-style: var(--ngx-editor-click-pointer, default);
     border-radius: $popup-border-radius;
     background-color: $popup-bg-color;
     z-index: 10;
-    width: 100%;
+    width: max-content; // Allow menu to size to the widest item
+    min-width: 100%; // Ensure it’s at least as wide as the button
     top: calc(#{$menubar-height} + 2px);
     display: flex;
     flex-direction: column;
@@ -259,9 +262,13 @@ $pointer-style: var(--ngx-editor-click-pointer, default);
 
   .NgxEditor__Dropdown--Item {
     @include button-reset;
-    padding: 8px;
-    white-space: nowrap;
-    color: inherit;
+  padding: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  box-sizing: border-box;
+
 
     &:focus-visible {
       outline: 1px solid $focus-ring-color;

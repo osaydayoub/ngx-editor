@@ -216,7 +216,7 @@ export class DropdownComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.editorView = this.menuService.editor.view;
-
+    this.update(this.editorView);
     this.updateSubscription = this.menuService.editor.update.subscribe((view: EditorView) => {
       this.update(view);
     });
